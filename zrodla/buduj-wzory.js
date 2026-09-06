@@ -57,13 +57,13 @@ function wzorWniosku() {
     ["Imię i nazwisko", ""], ["Funkcja", ""], ["Telefon", ""], ["Adres e-mail", ""],
   ]));
   b.push(U.akapit("Osoby uprawnione do reprezentacji podmiotu", { pogrub: true, odstep: 3 }));
+  b.push(U.podpowiedz("Grupa nieformalna działająca samodzielnie wpisuje tu osoby, które podpiszą umowę w jej imieniu."));
   b.push(U.tabelaPusta([3200, 3000, 2870], ["Imię i nazwisko", "Funkcja", "Podstawa reprezentacji"], 2));
-  b.push(U.podpowiedz("Poniższą tabelę wypełniają wyłącznie grupy nieformalne. Wymagane są co najmniej trzy osoby."));
-  b.push(U.tabelaPusta([3200, 3000, 2870], ["Imię i nazwisko", "Telefon", "Adres e-mail"], 3));
-  b.push(U.podpowiedz("Poniższe pola wypełnia grupa nieformalna działająca przez organizację patronacką."));
+  b.push(U.podpowiedz("Poniższą tabelę wypełniają grupy nieformalne, także działające przez organizację patronacką. Wymagane są co najmniej trzy pełnoletnie osoby zamieszkałe w województwie śląskim."));
+  b.push(U.tabelaPusta([3200, 3000, 2870], ["Imię i nazwisko", "Rola w grupie", "Uwagi"], 3));
+  b.push(U.podpowiedz("Grupa nieformalna działająca przez organizację patronacką: wnioskodawcą jest organizacja patronacka, jej dane wpisuje się wyżej jako dane podmiotu."));
   b.push(U.polaKrotkie([
-    ["Nazwa organizacji patronackiej", ""], ["KRS i NIP", ""], ["Adres siedziby", ""],
-    ["Osoba do kontaktu", ""],
+    ["Nazwa grupy nieformalnej", "jeżeli grupa działa przez organizację patronacką"],
   ]));
 
   b.push(lamStrone());
@@ -95,9 +95,9 @@ function wzorWniosku() {
     "Do 800 znaków. Rozmowy z mieszkańcami, ankieta, dane gminy, konkretne zdarzenie."));
 
   b.push(...U.naglowekSekcji("Część E", "Działania"));
-  b.push(U.podpowiedz("Od jednego do dziesięciu działań. Przy każdym podajcie nazwę, opis i liczbę uczestników."));
-  b.push(U.tabelaPusta([600, 5670, 2800],
-    ["Lp.", "Nazwa i opis działania", "Liczba uczestników"], 6, 240));
+  b.push(U.podpowiedz("Od jednego do dziesięciu działań. Przy każdym podajcie nazwę, opis, termin od i do, miejsce oraz liczbę uczestników. Terminy działań są harmonogramem mikroprojektu."));
+  b.push(U.tabelaPusta([600, 4070, 1600, 1500, 1300],
+    ["Lp.", "Nazwa i opis działania", "Termin od i do", "Miejsce", "Liczba uczestników"], 6, 240));
 
   b.push(lamStrone());
   b.push(...U.naglowekSekcji("Część F", "Odbiorcy"));
@@ -152,15 +152,21 @@ function wzorWniosku() {
     "Wyrażamy zgodę na przetwarzanie danych osobowych na zasadach opisanych w klauzuli informacyjnej.",
     "Zobowiązujemy się do oznaczania materiałów zgodnie z wymogami regulaminu.",
     "Zobowiązujemy się do zapewnienia apartyjnego charakteru wydarzeń w mikroprojekcie.",
+    "Podmiot nie jest wpisany do rejestru podmiotów wykluczonych z możliwości otrzymania środków publicznych, nie zalega z należnościami publicznoprawnymi i nie toczy się wobec niego postępowanie egzekucyjne dotyczące zobowiązań publicznoprawnych.",
+    "Podmiot spełnia warunki formalne Rządowego Programu wsparcia organizacji pozarządowych Moc Małych Społeczności.",
+    "Wśród osób reprezentujących wnioskodawcę albo tworzących grupę nieformalną nie ma członków komisji oceniającej ani osób zatrudnionych u Operatora lub współoferenta, a osoby te nie pełnią funkcji w organach wnioskodawcy.",
+    "Składamy w tym naborze tylko jeden wniosek.",
   ].forEach((o) => b.push(U.kratka(o)));
   b.push(U.podpowiedz("Poniższe oświadczenie składają wyłącznie MiŚLOP. Próg wynika z regulaminu Programu Moc Małych Społeczności."));
   b.push(U.kratka("Średni roczny przychód organizacji z trzech ostatnich zamkniętych lat budżetowych nie przekroczył 200 000 zł."));
-  b.push(U.podpowiedz("Poniższe oświadczenie składa się tylko wtedy, gdy w działaniach uczestniczą osoby małoletnie."));
+  b.push(U.podpowiedz("Poniższe oświadczenia składa się tylko wtedy, gdy w działaniach uczestniczą osoby małoletnie."));
+  b.push(U.kratka("Przed udziałem osób małoletnich zbierzemy pisemne zgody rodziców lub opiekunów prawnych."));
   b.push(U.kratka("Wdrożymy standardy ochrony małoletnich i zweryfikujemy osoby pracujące z małoletnimi w Rejestrze Sprawców Przestępstw na Tle Seksualnym."));
   b.push(U.podpowiedz("Poniższe oświadczenie składa organizacja patronacka."));
-  b.push(U.kratka("Przyjmujemy odpowiedzialność za wydatkowanie i rozliczenie mikrodotacji przyznanej grupie nieformalnej."));
+  b.push(U.kratka("Grupa nieformalna i organizacja patronacka uzgodniły złożenie wniosku. Organizacja jest stroną umowy i przyjmuje odpowiedzialność za wydatkowanie i rozliczenie mikrodotacji."));
 
   b.push(kreska());
+  b.push(U.podpowiedz("Wniosek składa się wyłącznie w systemie konkursowym. Złożenie w systemie zastępuje podpis; poniższe pola służą tylko wersji roboczej na papierze."));
   b.push(U.miejsceNaPodpis(["Data i podpis osoby uprawnionej", "Data i podpis drugiej osoby uprawnionej"]));
   b.push(...U.pasekOznaczen());
   return U.zbuduj({ tytul: "Wniosek o mikrodotację", naglowek: "Wzór wniosku o mikrodotację" }, b);
@@ -176,14 +182,14 @@ function kartaFormalna() {
     tytul: "Karta oceny formalnej",
     stempel: "Załącznik nr 2 do regulaminu",
     duzy: false,
-    uwaga: "Kartę wypełnia jeden ekspert. Odpowiedź NIE w którymkolwiek wierszu oznacza wezwanie do jednokrotnego uzupełnienia w terminie 3 dni roboczych albo pozostawienie wniosku bez rozpatrzenia, zgodnie z § 13 regulaminu.",
+    uwaga: "Kartę wypełnia jeden ekspert. Odpowiedź NIE w wierszach 1 do 18 oznacza wezwanie do jednokrotnego uzupełnienia w terminie 3 dni roboczych albo pozostawienie wniosku bez rozpatrzenia, zgodnie z § 13 regulaminu. Wiersz 19 ma charakter informacyjny.",
   }));
   b.push(lamStrone());
 
   b.push(...U.naglowekSekcji("", "Metryka oceny"));
   b.push(U.polaKrotkie([
     ["Numer wniosku", ""], ["Nazwa wnioskodawcy", ""], ["Subregion", ""],
-    ["Typ podmiotu", "MiŚLOP, grupa nieformalna, organizacja patronacka"],
+    ["Typ podmiotu", "MiŚLOP albo grupa nieformalna albo organizacja patronacka"],
     ["Imię i nazwisko eksperta", ""], ["Data oceny", ""],
   ]));
 
@@ -208,7 +214,7 @@ function kartaFormalna() {
     "Złożono komplet obowiązkowych oświadczeń",
     "Złożono oświadczenie o standardach ochrony małoletnich, jeżeli dotyczy",
     "Złożono oświadczenie organizacji patronackiej, jeżeli dotyczy",
-    "Wskazano numer rachunku bankowego (brak nie jest brakiem formalnym, rachunek uzupełnia się przed podpisaniem umowy, § 18 ust. 7)",
+    "Wskazano numer rachunku bankowego (brak nie jest brakiem formalnym, rachunek uzupełnia się przed podpisaniem umowy, § 18 ust. 6 i 7)",
   ];
   const wiersze = [new TableRow({
     tableHeader: true,
@@ -239,7 +245,7 @@ function kartaFormalna() {
   b.push(U.kratka("Wniosek wymaga jednokrotnego uzupełnienia, termin 3 dni robocze"));
   b.push(U.kratka("Wniosek pozostawia się bez rozpatrzenia"));
   b.push(...U.pole("Uzasadnienie rozstrzygnięcia", 3));
-  b.push(U.miejsceNaPodpis(["Data i podpis eksperta", "Data i podpis koordynatora oceny"]));
+  b.push(U.miejsceNaPodpis(["Data i podpis eksperta"]));
   b.push(...U.pasekOznaczen());
   return U.zbuduj({ tytul: "Karta oceny formalnej", naglowek: "Karta oceny formalnej" }, b);
 }
@@ -318,7 +324,7 @@ function kartaMerytoryczna() {
       { rozmiar: 20, kolor: SZARY, odstep: 5 }));
     k.pyt.forEach((p, i) => b.push(U.punkt(LITERY[i], p)));
     b.push(U.polaKrotkie([["Liczba przyznanych punktów", `maksymalnie ${k.max}`]]));
-    b.push(...U.pole("Uzasadnienie oceny w tym kryterium", 3));
+    b.push(...U.pole("Uzasadnienie oceny w tym kryterium", 3, "Co najmniej 100 znaków. Wnioskodawca ma prawo wglądu w tę treść."));
   });
 
   b.push(lamStrone());
@@ -336,9 +342,8 @@ function kartaMerytoryczna() {
     { podsumowanie: true, prawoOd: 1 }));
   b.push(U.akapit("Próg rekomendacji: 25 punktów oraz minimum w każdym kryterium.", { rozmiar: 20, kolor: SZARY, odstep: 10 }));
 
-  b.push(...U.pole("Uzasadnienie łączne", 6,
-    "Nie mniej niż 500 znaków dla całej karty. Wnioskodawca ma prawo wglądu w tę treść, więc pisz tak, żeby dało się z niej wyciągnąć wnioski na przyszłość."));
-  b.push(...U.pole("Zalecenia dla wnioskodawcy", 3, "Pole nieobowiązkowe."));
+  b.push(U.akapit("Uzasadnienia w pięciu kryteriach liczą łącznie nie mniej niż 500 znaków. Wnioskodawca ma prawo wglądu w tę treść, więc pisz tak, żeby dało się z niej wyciągnąć wnioski na przyszłość.", { rozmiar: 20, kolor: SZARY, odstep: 8 }));
+  b.push(...U.pole("Uwagi dodatkowe", 3, "Pole nieobowiązkowe, na przykład zalecenia dla wnioskodawcy."));
 
   b.push(...U.naglowekSekcji("", "Rekomendacja"));
   b.push(U.kratka("Rekomendowany do dofinansowania"));
@@ -374,6 +379,7 @@ function wzorUmowy() {
   b.push(U.akapit("Fundacją Klaster Innowacji Społecznych z siedzibą w Gliwicach przy ulicy o. Jana Siemińskiego 22, 44-100 Gliwice, wpisaną do Krajowego Rejestru Sądowego pod numerem 0000577540, NIP 6312658876, reprezentowaną przez ......................................., zwaną dalej Operatorem,", { odstep: 5 }));
   b.push(U.akapit("a", { odstep: 5 }));
   b.push(U.akapit("....................................................... z siedzibą w ......................................., numer w rejestrze ......................., NIP ......................., reprezentowanym przez ......................................., zwanym dalej Grantobiorcą,", { odstep: 5 }));
+  b.push(U.akapit("albo, gdy Grantobiorcą jest grupa nieformalna działająca samodzielnie: grupą nieformalną ......................................., którą tworzą: ......................................., ......................................., ......................................., zamieszkali w województwie śląskim, reprezentowaną przez ......................................., zwaną dalej Grantobiorcą,", { odstep: 5 }));
   b.push(U.akapit("zwanymi dalej łącznie Stronami, o następującej treści:", { odstep: 10 }));
 
   const paragrafy = [
@@ -383,6 +389,7 @@ function wzorUmowy() {
         "Operator powierza Grantobiorcy realizację mikroprojektu pod tytułem ......................................................., zwanego dalej Mikroprojektem, opisanego we wniosku stanowiącym załącznik nr 1 do umowy.",
         "Mikroprojekt jest realizowany w ramach zadania publicznego „Wielka Moc Małych Społeczności – Odporne Śląskie 2026”, finansowanego ze środków Narodowego Instytutu Wolności – Centrum Rozwoju Społeczeństwa Obywatelskiego, w ramach Rządowego Programu wsparcia organizacji pozarządowych Moc Małych Społeczności, Priorytet 2.",
         "Grantobiorca oświadcza, że zapoznał się z regulaminem konkursu i realizuje Mikroprojekt zgodnie z nim.",
+        "Grantobiorca oświadcza, że dane podane we wniosku są zgodne ze stanem faktycznym i prawnym, że nie jest wpisany do rejestru podmiotów wykluczonych z możliwości otrzymania środków publicznych, nie zalega z należnościami publicznoprawnymi i nie toczy się wobec niego postępowanie egzekucyjne dotyczące zobowiązań publicznoprawnych. Oświadczenia te stanowią zabezpieczenie umowy w rozumieniu § 18 ust. 3 regulaminu.",
         "Wskaźniki rezultatu Mikroprojektu oraz harmonogram działań określa wniosek, o którym mowa w ustępie 1. Osiągnięcie wskaźników jest podstawą rozliczenia mikrodotacji.",
       ],
     },
@@ -402,17 +409,20 @@ function wzorUmowy() {
       u: [
         "Mikroprojekt jest realizowany od dnia ....................... do dnia ....................... .",
         "Koszty są kwalifikowalne wyłącznie w okresie, o którym mowa w ustępie 1.",
-        "Zmiana terminu realizacji wymaga uprzedniej zgody Operatora wyrażonej w systemie konkursowym i nie może wykraczać poza termin zakończenia zadania publicznego.",
+        "Zmiana terminów działań w obrębie okresu, o którym mowa w ustępie 1, wymaga uprzedniej zgody Operatora wyrażonej w systemie konkursowym. Okres realizacji nie może wykraczać poza termin zakończenia zadania publicznego.",
       ],
     },
     {
       t: "Wydatkowanie środków",
       u: [
         "Grantobiorca wydatkuje środki wyłącznie zgodnie z budżetem stanowiącym załącznik nr 2 do umowy.",
-        "Przesunięcia między pozycjami budżetu do 20 procent wartości pozycji nie wymagają zgody Operatora. Przesunięcia większe wymagają zgody wyrażonej przed dokonaniem wydatku.",
+        "Przesunięcia między pozycjami budżetu do 20 procent wartości pozycji nie wymagają zgody Operatora. Przesunięcia większe oraz zmiana zakresu działań wymagają zgody Operatora wyrażonej w systemie konkursowym przed dokonaniem wydatku.",
         "Wydatek majątkowy o wartości jednostkowej przekraczającej 10 000 zł jest niekwalifikowalny.",
         "Grantobiorca będący grupą nieformalną nie finansuje rozwoju instytucjonalnego i nie nabywa środków trwałych.",
         "Wszystkie płatności są dokonywane bezgotówkowo.",
+        "Rzeczy zakupione ze środków mikrodotacji Grantobiorca nie zbywa przez 5 lat od dnia zakupu. Zgodę na wcześniejsze zbycie może wyrazić Operator, pod warunkiem przeznaczenia uzyskanych środków na cele statutowe Grantobiorcy.",
+        "Grantobiorca nie pobiera od odbiorców Mikroprojektu żadnych świadczeń pieniężnych. Udział w działaniach jest bezpłatny.",
+        "Grantobiorca opisuje dowody księgowe Mikroprojektu w sposób trwały, adnotacją o treści określonej w § 23 ust. 7 regulaminu.",
         "Niedopuszczalne jest finansowanie tego samego wydatku z dwóch źródeł publicznych.",
       ],
     },
@@ -441,7 +451,7 @@ function wzorUmowy() {
     {
       t: "Ochrona małoletnich i danych osobowych",
       u: [
-        "Grantobiorca prowadzący działania z udziałem małoletnich wdraża standardy ochrony małoletnich zgodnie z ustawą z dnia 13 maja 2016 r. oraz weryfikuje osoby pracujące z małoletnimi w Rejestrze Sprawców Przestępstw na Tle Seksualnym.",
+        "Grantobiorca prowadzący działania z udziałem małoletnich wdraża standardy ochrony małoletnich zgodnie z ustawą z dnia 13 maja 2016 r. o przeciwdziałaniu zagrożeniom przestępczością na tle seksualnym i ochronie małoletnich oraz weryfikuje osoby pracujące z małoletnimi w Rejestrze Sprawców Przestępstw na Tle Seksualnym.",
         "Grantobiorca jest administratorem danych osobowych uczestników Mikroprojektu i odpowiada za zgodne z prawem ich przetwarzanie, w tym za pozyskanie zgód na wykorzystanie wizerunku.",
         "Grantobiorca przekazuje Operatorowi wyłącznie dane niezbędne do rozliczenia i ewaluacji.",
       ],
@@ -457,7 +467,7 @@ function wzorUmowy() {
     {
       t: "Sprawozdanie i rozliczenie",
       u: [
-        "Grantobiorca składa sprawozdanie końcowe w systemie konkursowym w terminie ....................... , na wzorze stanowiącym załącznik nr 3 do umowy.",
+        "Grantobiorca składa sprawozdanie końcowe w systemie konkursowym w terminie ....................... , na wzorze stanowiącym załącznik nr 4 do umowy.",
         "Do sprawozdania Grantobiorca dołącza opisane dokumenty finansowe, listy obecności oraz dokumentację potwierdzającą osiągnięcie rezultatów.",
         "Rozliczenie jest prawidłowe, jeżeli Grantobiorca wykonał wszystkie zaplanowane działania i osiągnął co najmniej 80 procent wskaźników rezultatu.",
         "Przy osiągnięciu wskaźników na poziomie od 50 do 80 procent rozliczenie jest proporcjonalne, a Grantobiorca zwraca część mikrodotacji odpowiadającą niezrealizowanej części.",
@@ -540,7 +550,7 @@ function wzorSprawozdania() {
   b.push(...U.pole("Jak zrealizowano komponent odporności", 5,
     "Do 1 500 znaków. Wskaż obszar z wniosku i opisz, co konkretnie w tym obszarze zrobiliście."));
   b.push(...U.pole("Co zostało w społeczności", 3,
-    "Sprzęt, procedura, przeszkolone osoby, nowe kontakty. To pole weryfikujemy przy ocenie wskaźnika trwałości."));
+    "Sprzęt, procedura, przeszkolone osoby, nowe kontakty. To pole porównujemy z częścią G wniosku, trwałość rezultatów."));
 
   b.push(lamStrone());
   b.push(...U.naglowekSekcji("Część D", "Wskaźniki"));
@@ -550,6 +560,8 @@ function wzorSprawozdania() {
   b.push(U.polaKrotkie([
     ["Liczba odbiorców bezpośrednich", "zgodnie z listami obecności"],
     ["Liczba osób objętych ankietą na wejściu i na wyjściu", "dotyczy MiŚLOP, minimum 2 osoby"],
+    ["Liczba osób, u których ankieta wykazała wzrost świadomości", "dotyczy MiŚLOP, z tabeli zbiorczej załącznika 9, minimum 2 osoby"],
+    ["Czy w działaniach uczestniczyły osoby małoletnie", "tak albo nie"],
   ]));
 
   b.push(...U.naglowekSekcji("Część E", "Rozliczenie finansowe"));
@@ -564,11 +576,11 @@ function wzorSprawozdania() {
 
   b.push(...U.naglowekSekcji("Część F", "Załączniki"));
   b.push(U.kratka("Listy obecności odbiorców bezpośrednich, odrębnie dla każdego działania"));
-  b.push(U.kratka("Dokumentacja zdjęciowa, co najmniej pięć zdjęć"));
+  b.push(U.kratka("Dokumentacja zdjęciowa działań"));
   b.push(U.kratka("Przykłady materiałów promocyjnych z widocznym zestawieniem znaków"));
   b.push(U.kratka("Kopie opisanych dokumentów finansowych"));
-  b.push(U.kratka("Ankiety na wejściu i na wyjściu, jeżeli dotyczy"));
-  b.push(U.kratka("Dokumentacja weryfikacji w Rejestrze Sprawców Przestępstw na Tle Seksualnym, jeżeli dotyczy"));
+  b.push(U.kratka("Ankiety na wejściu i na wyjściu wraz z tabelą zbiorczą z załącznika 9, dotyczy MiŚLOP"));
+  b.push(U.kratka("Podpisane standardy ochrony małoletnich oraz dokumentacja weryfikacji w Rejestrze Sprawców Przestępstw na Tle Seksualnym, jeżeli w działaniach uczestniczyły osoby małoletnie"));
 
   b.push(...U.naglowekSekcji("Część G", "Oświadczenia"));
   [

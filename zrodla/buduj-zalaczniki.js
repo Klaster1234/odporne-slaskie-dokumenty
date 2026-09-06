@@ -227,6 +227,8 @@ function klauzuleRodo() {
   b.push(U.kratka("Wyrażam zgodę na wizerunek"));
   b.push(U.kratka("Nie wyrażam zgody na wizerunek, dziecko uczestniczy bez utrwalania wizerunku"));
   b.push(U.polaKrotkie([["Telefon do rodzica albo opiekuna", "na wypadek nagłej sytuacji"], ["Istotne informacje o zdrowiu dziecka", "alergie, leki, dobrowolnie"]]));
+  b.push(U.akapit("Informacje o zdrowiu dziecka podaję dobrowolnie i wyrażam zgodę na ich przetwarzanie przez grantobiorcę wyłącznie w celu zapewnienia dziecku bezpieczeństwa podczas działań (art. 9 ust. 2 lit. a RODO). Zgodę mogę wycofać w każdej chwili.", { rozmiar: 21 }));
+  b.push(U.kratka("Wyrażam zgodę na przetwarzanie informacji o zdrowiu dziecka w podanym zakresie"));
   b.push(U.miejsceNaPodpis(["Data i czytelny podpis rodzica albo opiekuna"]));
 
   b.push(...U.pasekOznaczen());
@@ -255,7 +257,7 @@ function pakietOznaczen() {
     "naklejek na sprzęt kupiony z mikrodotacji, na przykład apteczkę, defibrylator, agregat, latarki",
     "materiałów edukacyjnych, poradników, map i instrukcji",
   ].forEach((t, i) => b.push(U.punkt(L[i], t)));
-  b.push(U.akapit("Brak oznaczenia jest naruszeniem umowy o powierzenie mikrodotacji i może skutkować uznaniem kosztu materiału za niekwalifikowalny.", { kolor: U.SZARY, rozmiar: 20 }));
+  b.push(U.akapit("Wykonanie obowiązków informacyjnych sprawdzamy podczas monitoringu i przy rozliczeniu (§ 20 ust. 7 regulaminu).", { kolor: U.SZARY, rozmiar: 20 }));
 
   b.push(...U.naglowekSekcji("2", "Zestawienie znaków"));
   b.push(U.akapit("Używasz gotowego, skróconego zestawienia znaków z paczki. Nie składasz go samodzielnie i nie zmieniasz kolejności ani proporcji. Zestawienie zawiera, od lewej: znak Komitetu do spraw Pożytku Publicznego, znak Narodowego Instytutu Wolności – Centrum Rozwoju Społeczeństwa Obywatelskiego, znak Programu Moc Małych Społeczności."));
@@ -291,7 +293,7 @@ function pakietOznaczen() {
 
   b.push(...U.naglowekSekcji("5", "Wydarzenia"));
   b.push(...ustepy([
-    "W centralnym miejscu wydarzenia, na przykład przy stole prowadzącego, na scenie albo przy wejściu do sali, stoi pełnokolorowe zestawienie znaków w formie planszy, roll-upu albo wydruku formatu co najmniej A3.",
+    "W widocznym miejscu wydarzenia, na przykład przy stole prowadzącego albo przy wejściu do sali, zalecamy postawić pełnokolorowe zestawienie znaków w formie planszy, roll-upu albo wydruku, najlepiej formatu A3. Gotowy plik do druku jest w paczce.",
     "Na początku wydarzenia prowadzący odczytuje informację: „Mikroprojekt [TYTUŁ] realizowany jest w ramach konkursu Moc Małych Społeczności – Śląskie. Zadanie publiczne Wielka Moc Małych Społeczności – Odporne Śląskie 2026 sfinansowane jest ze środków Narodowego Instytutu Wolności – Centrum Rozwoju Społeczeństwa Obywatelskiego w ramach Rządowego Programu wsparcia organizacji pozarządowych Moc Małych Społeczności”.",
     "Lista obecności, program i zaświadczenia z wydarzenia noszą zestawienie znaków i napis informacyjny. Wzory list obecności z gotowym oznaczeniem są w paczce.",
     "Wydarzenia mają charakter apartyjny. W ich trakcie nie wolno promować partii politycznych ani prowadzić agitacji wyborczej.",
