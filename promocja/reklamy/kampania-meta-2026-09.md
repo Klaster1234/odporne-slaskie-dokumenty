@@ -55,7 +55,7 @@ Sfinansowano ze środków Narodowego Instytutu Wolności – Centrum Rozwoju Spo
 
 Tekst C (do grafiki sto cztery)
 
-Koło gospodyń, OSP, klub sportowy, mała fundacja albo trzech sąsiadów bez żadnej rejestracji. Sto cztery pomysły z województwa śląskiego dostaną po maksymalnie 10 000 zł na przygotowanie miejscowości na kryzys. Jeden może być Wasz.
+Koło gospodyń, OSP, klub sportowy, mała fundacja albo 3 osoby bez żadnej rejestracji. Sto cztery pomysły z województwa śląskiego dostaną po maksymalnie 10 000 zł na przygotowanie miejscowości na kryzys. Jeden może być Wasz.
 
 Cztery subregiony mają osobne listy rankingowe, więc konkurujecie tylko ze swoim terenem. Nabór do 6 października, wniosek w całości online.
 
