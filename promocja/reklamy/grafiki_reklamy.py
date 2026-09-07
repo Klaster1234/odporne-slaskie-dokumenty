@@ -49,9 +49,9 @@ def grafika(W, H, naglowek_sz, top, story=False):
     y = top
     etykieta(d, 70, y, "Nabór do 6 października 2026", sz=30 if story else 26)
     y += 70 if story else 60
-    y = tekst_lam(d, 70, y, "Do 10 000 zł dla Twojej miejscowości", f_fraunces(naglowek_sz, 700), TUSZ, W - 140 - (0 if story else sz + 40), lh=int(naglowek_sz * 1.08))
+    y = tekst_lam(d, 70, y, "Do 10 000 zł dla organizacji i grup nieformalnych", f_fraunces(naglowek_sz, 700), TUSZ, W - 140 - (0 if story else sz + 40), lh=int(naglowek_sz * 1.08))
     y += 22
-    y = tekst_lam(d, 70, y, "Na defibrylator i kurs pierwszej pomocy, plan na blackout, warsztat o oszustwach w sieci, ćwiczenie z OSP.", f_lato(34 if story else 28), TUSZ, W - 140 - (0 if story else sz + 40), lh=int((34 if story else 28) * 1.35))
+    y = tekst_lam(d, 70, y, "Stowarzyszenie, koło gospodyń, OSP, klub sportowy albo trzech sąsiadów bez rejestracji. Na defibrylator, kurs pierwszej pomocy, plan na blackout, ćwiczenie z OSP.", f_lato(34 if story else 28), TUSZ, W - 140 - (0 if story else sz + 40), lh=int((34 if story else 28) * 1.35))
     y += 34
     f = f_lato(36 if story else 32, bold=True)
     chipy = ["bez wkładu własnego", "wystarczą 3 osoby", "wniosek w całości online", "miejscowości do 100 tys. mieszkańców"]
@@ -70,7 +70,7 @@ def grafika(W, H, naglowek_sz, top, story=False):
     pasek_dolny(im, d, W, H, hb, 20 if story else 18)
     return im
 
-grafika(1080, 1080, 76, 90).save(OUT + "/reklama-kwadrat-1080x1080.png", optimize=True)
-grafika(1080, 1350, 96, 130).save(OUT + "/reklama-pion-1080x1350.png", optimize=True)
-grafika(1080, 1920, 112, 330, story=True).save(OUT + "/reklama-story-1080x1920.png", optimize=True)
+grafika(1080, 1080, 70, 80).save(OUT + "/reklama-kwadrat-1080x1080.png", optimize=True)
+grafika(1080, 1350, 88, 120).save(OUT + "/reklama-pion-1080x1350.png", optimize=True)
+grafika(1080, 1920, 104, 320, story=True).save(OUT + "/reklama-story-1080x1920.png", optimize=True)
 print("OK", os.listdir(OUT))
