@@ -49,8 +49,10 @@ def grafika(W, H, naglowek_sz, top, story=False):
     y = top
     etykieta(d, 70, y, "Nabór do 6 października 2026", sz=30 if story else 26)
     y += 70 if story else 60
-    y = tekst_lam(d, 70, y, "Do 10 000 zł na odporność Twojej miejscowości", f_fraunces(naglowek_sz, 700), TUSZ, W - 140 - (0 if story else sz + 40), lh=int(naglowek_sz * 1.08))
-    y += 36
+    y = tekst_lam(d, 70, y, "Do 10 000 zł dla Twojej miejscowości", f_fraunces(naglowek_sz, 700), TUSZ, W - 140 - (0 if story else sz + 40), lh=int(naglowek_sz * 1.08))
+    y += 22
+    y = tekst_lam(d, 70, y, "Na defibrylator i kurs pierwszej pomocy, plan na blackout, warsztat o oszustwach w sieci, ćwiczenie z OSP.", f_lato(34 if story else 28), TUSZ, W - 140 - (0 if story else sz + 40), lh=int((34 if story else 28) * 1.35))
+    y += 34
     f = f_lato(36 if story else 32, bold=True)
     chipy = ["bez wkładu własnego", "wystarczą 3 osoby", "wniosek w całości online", "miejscowości do 100 tys. mieszkańców"]
     for t in chipy:
