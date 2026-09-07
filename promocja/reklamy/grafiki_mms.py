@@ -174,7 +174,7 @@ W, H = 1600, 560
 im, d = papier(W, H)
 etykieta(d, 60, 50, "Harmonogram")
 d.text((60, 88), "Od wniosku do wypłaty w sześć tygodni", font=f_fraunces(56, 700), fill=TUSZ)
-kroki = [("6 września", "start naboru"), ("6 października", "koniec naboru, 23:59"), ("7 do 14 października", "ocena wniosków"), ("15 października", "listy rankingowe"), ("16 do 23 października", "umowy i jedna wypłata"), ("23 listopada", "koniec realizacji")]
+kroki = [("7 września", "start naboru"), ("6 października", "koniec naboru, 23:59"), ("7 do 14 października", "ocena wniosków"), ("15 października", "listy rankingowe"), ("16 do 23 października", "umowy i jedna wypłata"), ("23 listopada", "koniec realizacji")]
 x0, x1, yl = 110, W - 110, 300
 d.line([x0, yl, x1, yl], fill=TUSZ, width=4)
 n = len(kroki)
