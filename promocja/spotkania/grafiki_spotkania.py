@@ -147,14 +147,36 @@ def grafika(p, plik):
     f = f_lato(19)
     d.text((W - 60 - d.textlength(podpis, font=f), FOT_H - 38), podpis, font=f, fill=(255, 255, 255))
 
+    blok_dolny(im, d, kicker=f"Szkolenie, {p['dzien']} {p['data_pl']}",
+               tytul=p["miasto"], tytul_sz=96 if len(p["miasto"]) <= 13 else 62,
+               zdanie="Bezpłatne szkolenie o pisaniu wniosku o mikrodotację do 10 000 zł.",
+               linia=p["godziny"] + (f", {p['miejsce']}" if p["miejsce"] else ""),
+               dopisek="Udział bezpłatny, bez limitu miejsc, obowiązują zapisy.")
+    im.save(plik, optimize=True)
+
+
+def pas_hasla(im, d, haslo, tlo, etykieta_tekst):
+    """Gorny pas webinarium: plaszczyzna koloru z haslem zamiast zdjecia miejscowosci."""
+    d.rectangle([0, 0, W, FOT_H], fill=tlo)
+    # znak S z kropka jak na reklamach, tonalnie, zeby nie wchodzil na haslo
+    sz = 260
+    x0, y0 = W - sz - 30, FOT_H - sz - 20
+    d.text((x0, y0), "Ś", font=f_fraunces(sz, 700), fill=(48, 44, 38) if tlo == TUSZ else (58, 78, 178))
+    d.ellipse([x0 + int(sz * 0.72), y0 + int(sz * 0.62),
+               x0 + int(sz * 0.83), y0 + int(sz * 0.73)], fill=POM)
+    etykieta(d, 60, 56, etykieta_tekst, kolor=POM)
+    tekst_lam(d, 60, 132, haslo, f_fraunces(66, 700), BIEL, W - 400, lh=80)
+    d.rectangle([0, FOT_H, W, FOT_H + 8], fill=POM)
+
+
+def blok_dolny(im, d, kicker, tytul, tytul_sz, zdanie, linia, dopisek):
+    """Papierowa czesc pod pasem: termin, tytul, jedno zdanie, adres, organizatorzy, oznaczenia."""
     y = FOT_H + 8 + 50
-    etykieta(d, 60, y, f"Szkolenie, {p['dzien']} {p['data_pl']}")
+    etykieta(d, 60, y, kicker)
     y += 54
-    f_m = f_fraunces(96 if len(p["miasto"]) <= 13 else 62, 700)
-    y = tekst_lam(d, 60, y, p["miasto"], f_m, TUSZ, W - 120, lh=int(f_m.size * 1.06)) + 14
-    y = tekst_lam(d, 60, y, "Bezpłatne szkolenie o pisaniu wniosku o mikrodotację do 10 000 zł.",
-                  f_lato(32), TUSZ, W - 120, lh=42) + 8
-    linia = p["godziny"] + (f", {p['miejsce']}" if p["miejsce"] else "")
+    f_t = f_fraunces(tytul_sz, 700)
+    y = tekst_lam(d, 60, y, tytul, f_t, TUSZ, W - 120, lh=int(f_t.size * 1.06)) + 14
+    y = tekst_lam(d, 60, y, zdanie, f_lato(32), TUSZ, W - 120, lh=42) + 8
     tekst_lam(d, 60, y, linia, f_lato(28, bold=True), POM, W - 120, lh=38)
 
     # adres strony jako przycisk, bo na Instagramie link w opisie nie jest klikalny
@@ -165,8 +187,7 @@ def grafika(p, plik):
     by = H - PAS_H - 108 - bh
     d.rounded_rectangle([60, by, 60 + bw, by + bh], radius=14, fill=KOB)
     d.text((100, by + 20), adres, font=f_a, fill=BIEL)
-    d.text((60, by + bh + 18), "Udział bezpłatny, bez limitu miejsc, obowiązują zapisy.",
-           font=f_lato(24), fill=SZARY)
+    d.text((60, by + bh + 18), dopisek, font=f_lato(24), fill=SZARY)
 
     # organizatorzy na papierze: logo Klastra nigdy nie stoi samo
     ox = 60 + bw + 56
@@ -179,14 +200,26 @@ def grafika(p, plik):
     wklej(im, os.path.join(LOGO, "web-mms-inwersja.png"), 60, H - PAS_H + 34, 78)
     tekst_lam(d, 60, H - PAS_H + 34 + 78 + 22, KLAUZULA, f_lato(18), (200, 195, 185), W - 120, lh=24)
 
+
+def grafika_webinar(p, plik):
+    im, d = papier(W, H)
+    pas_hasla(im, d, p["haslo"], KOB if p["obszar"] else TUSZ,
+              "Obszar odporności" if p["obszar"] else "Akademia Odporności")
+    blok_dolny(im, d, kicker=f"Webinarium online, {p['dzien']} {p['data_pl']}",
+               tytul=p["tytul"], tytul_sz=p.get("tytul_sz", 54),
+               zdanie=p["zdanie"], linia="17:00 do 19:00, online",
+               dopisek="Udział bezpłatny, zapisy online. Nagranie zostaje na stronie.")
     im.save(plik, optimize=True)
 
 
 def main():
-    plan = json.load(open(os.path.join(KATALOG, "plan_postow.json"), encoding="utf-8"))
-    for p in plan:
-        grafika(p, os.path.join(KATALOG, f"{p['slug']}.png"))
-        print("OK", p["slug"])
+    for nazwa, rysuj in (("plan_postow.json", grafika), ("plan_webinaria.json", grafika_webinar)):
+        sciezka = os.path.join(KATALOG, nazwa)
+        if not os.path.exists(sciezka):
+            continue
+        for p in json.load(open(sciezka, encoding="utf-8")):
+            rysuj(p, os.path.join(KATALOG, f"{p['slug']}.png"))
+            print("OK", p["slug"])
 
 
 if __name__ == "__main__":

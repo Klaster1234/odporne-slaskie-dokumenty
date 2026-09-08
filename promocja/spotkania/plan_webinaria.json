@@ -1,0 +1,93 @@
+[
+ {
+  "slug": "webinarium-asystent-ai-15-wrzesnia-2026",
+  "tytul": "Asystent AI dla grantobiorcy",
+  "haslo": "Odpowiada całą dobę i cytuje źródło, zamiast zmyślać",
+  "zdanie": "Część pierwsza, podstawowa. Nie trzeba nic umieć wcześniej.",
+  "dzien": "wtorek",
+  "data_pl": "15 września",
+  "obszar": false,
+  "kiedy_post": "2026-09-13T18:30:00+02:00"
+ },
+ {
+  "slug": "webinarium-asystent-ai-17-wrzesnia-2026",
+  "tytul": "Asystent AI, część 2",
+  "haslo": "Wniosek gotowy. Sprawdźmy go, zanim klikniesz Złóż",
+  "zdanie": "Pracujemy na wnioskach uczestników: spójność opisu z budżetem i braki w komponencie odporności.",
+  "dzien": "czwartek",
+  "data_pl": "17 września",
+  "obszar": false,
+  "kiedy_post": "2026-09-15T18:45:00+02:00"
+ },
+ {
+  "slug": "webinarium-blackout-i-21-wrzesnia-2026",
+  "tytul": "Blackout i klęski żywiołowe",
+  "haslo": "Trzeci dzień bez prądu. Kto puka do sąsiadki z końca wsi",
+  "zdanie": "Punkt zbiórki, lista osób wymagających pomocy, zapas, łączność. Scenariusze z Poradnika MSWiA.",
+  "dzien": "poniedziałek",
+  "data_pl": "21 września",
+  "obszar": true,
+  "kiedy_post": "2026-09-19T18:30:00+02:00"
+ },
+ {
+  "slug": "webinarium-pierwsza-pomoc-22-wrzesnia-2026",
+  "tytul": "Pierwsza pomoc i AED",
+  "haslo": "Zanim przyjedzie karetka, liczy się ten, kto stoi obok",
+  "zdanie": "Gdzie stoją najbliższe defibrylatory, jak zrobić szkolenie dla sąsiadów i jak wpisać to we wniosek.",
+  "dzien": "wtorek",
+  "data_pl": "22 września",
+  "obszar": true,
+  "kiedy_post": "2026-09-20T18:30:00+02:00"
+ },
+ {
+  "slug": "webinarium-bezpieczenstwo-cyfrowe-23-wrzesnia-2026",
+  "tytul": "Bezpieczeństwo cyfrowe i dezinformacja",
+  "tytul_sz": 48,
+  "haslo": "Jeden klik i organizacja traci konto, dane i wiarygodność",
+  "zdanie": "Hasła, logowanie dwuskładnikowe, kopie zapasowe, a potem prostowanie plotek w gminie.",
+  "dzien": "środa",
+  "data_pl": "23 września",
+  "obszar": true,
+  "kiedy_post": "2026-09-21T18:30:00+02:00"
+ },
+ {
+  "slug": "webinarium-sieci-sasiedzkie-25-wrzesnia-2026",
+  "tytul": "Sieci sąsiedzkie i wolontariat",
+  "haslo": "Pierwszego dnia przychodzi dwadzieścia osób. Co dalej",
+  "zdanie": "Najtańsza forma odporności i najczęściej pomijana we wnioskach. Jak ją opisać i utrzymać.",
+  "dzien": "piątek",
+  "data_pl": "25 września",
+  "obszar": true,
+  "kiedy_post": "2026-09-23T18:30:00+02:00"
+ },
+ {
+  "slug": "webinarium-wspolpraca-ze-28-wrzesnia-2026",
+  "tytul": "Współpraca ze służbami",
+  "haslo": "Ze strażą i policją umawiaj się, zanim coś się wydarzy",
+  "zdanie": "Kto za co odpowiada w kryzysie i jak umówić współpracę, która nie kończy się na jednym pikniku.",
+  "dzien": "poniedziałek",
+  "data_pl": "28 września",
+  "obszar": true,
+  "kiedy_post": "2026-09-26T18:30:00+02:00"
+ },
+ {
+  "slug": "webinarium-finanse-organizacji-30-wrzesnia-2026",
+  "tytul": "Finanse organizacji",
+  "haslo": "Jedno źródło pieniędzy to najkrótsza droga do zamknięcia",
+  "zdanie": "Składki, darowizny, odpis podatkowy i działalność odpłatna. Jak nie wisieć na jednym grantodawcy.",
+  "dzien": "środa",
+  "data_pl": "30 września",
+  "obszar": false,
+  "kiedy_post": "2026-09-28T18:30:00+02:00"
+ },
+ {
+  "slug": "webinarium-jak-prawidlowo-2-pazdziernika-2026",
+  "tytul": "Jak rozliczyć mikrodotację",
+  "haslo": "Budżet, który da się rozliczyć, planuje się przed złożeniem",
+  "zdanie": "Jakie dokumenty, jakie opisy, jakie terminy. Nagranie zostaje na stronie do listopada.",
+  "dzien": "piątek",
+  "data_pl": "2 października",
+  "obszar": false,
+  "kiedy_post": "2026-09-30T18:30:00+02:00"
+ }
+]
