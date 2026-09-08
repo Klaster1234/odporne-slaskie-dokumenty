@@ -12,7 +12,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 KAT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, KAT)
-from grafiki_mms import PAPIER, TUSZ, POM, KOB, BIEL, f_lato, papier, tekst_lam  # noqa: E402
+from grafiki_mms import PAPIER, TUSZ, POM, KOB, BIEL, SZARY, f_lato, papier, tekst_lam  # noqa: E402
 
 sys.stdout.reconfigure(encoding="utf-8")
 
@@ -113,6 +113,21 @@ def chipsy(d, x, y, pozycje, sz):
     return y + sz * 1.6
 
 
+def zawijaj(d, tekst, font, maxw):
+    """Ile linii zajmie tekst, ta sama regula co tekst_lam."""
+    linie, akt = [], ""
+    for slowo in tekst.split():
+        proba = (akt + " " + slowo).strip()
+        if d.textlength(proba, font=font) <= maxw:
+            akt = proba
+        else:
+            linie.append(akt)
+            akt = slowo
+    if akt:
+        linie.append(akt)
+    return linie
+
+
 def stopka(im, d, W, H, gora, wys_logo=72, klauzula_sz=15):
     """Czarny pas: wezwanie, adres, zestawienie znakow i klauzula."""
     d.rectangle([0, gora, W, H], fill=TUSZ)
@@ -125,12 +140,17 @@ def stopka(im, d, W, H, gora, wys_logo=72, klauzula_sz=15):
     y += int(W * 0.031 * 1.12)
     f_adres = f_fraunces(int(W * 0.052))
     d.text((pad, y), "mms.klaster.org.pl", font=f_adres, fill=PAPIER)
-    y += int(W * 0.052 * 1.18) + pad * 0.35
-
-    f_kl = f_lato(klauzula_sz)
-    y = tekst_lam(d, pad, y, KLAUZULA, f_kl, (183, 175, 162), W - 2 * pad,
-                  lh=int(klauzula_sz * 1.32)) or y
+    y += int(W * 0.052 * 1.14)
+    sz_war = max(13, int(W * 0.0205))
+    y = tekst_lam(d, pad, y, WARUNEK, f_lato(sz_war), PAPIER, W - 2 * pad,
+                  lh=int(sz_war * 1.35)) or y
+    # klauzula stoi nad rzedem znakow, liczona od dolu, zeby nigdy na niego nie weszla
     y = H - pad * 0.5 - wys_logo
+    f_kl = f_lato(klauzula_sz)
+    lh = int(klauzula_sz * 1.32)
+    linie = len(zawijaj(d, KLAUZULA, f_kl, W - 2 * pad))
+    tekst_lam(d, pad, y - int(pad * 0.45) - linie * lh, KLAUZULA, f_kl, (183, 175, 162),
+              W - 2 * pad, lh=lh)
     wklej(im, "web-mms-inwersja.png", pad, y, wys_logo)
     maly = int(wys_logo * 0.82)
     prawa = W - pad
@@ -143,15 +163,11 @@ def stopka(im, d, W, H, gora, wys_logo=72, klauzula_sz=15):
 
 
 NAGLOWEK = [
-    [("Konkurs dla miejscowości ", TUSZ), ("do", POM)],
-    [("100 tysięcy mieszkańców", POM)],
-    [("w województwie śląskim.", TUSZ)],
+    [("Do ", TUSZ), ("10 000 zł", POM)],
+    [("dla organizacji", TUSZ)],
+    [("i grup nieformalnych.", TUSZ)],
 ]
-NAGLOWEK_WASKI = [
-    [("Konkurs dla ", TUSZ), ("miejscowości", POM)],
-    [("do 100 tysięcy", POM)],
-    [("mieszkańców", POM), (" w śląskim.", TUSZ)],
-]
+WARUNEK = "Siedziba w miejscowości do 100 tysięcy mieszkańców w śląskim, bez wkładu własnego."
 
 
 def stopka_waska(im, d, W, H, gora, pad, klauzula_sz=13):
@@ -171,14 +187,17 @@ def stopka_waska(im, d, W, H, gora, pad, klauzula_sz=13):
     wklej(im, "web-mms-inwersja.png", W - pad - int(wys_logo * 5.45),
           gora + int(H * 0.045), wys_logo)
 
-    y += int(sz_adres * 1.30)
+    y += int(sz_adres * 1.22)
+    sz_war = int(W * 0.0165)
+    d.text((pad, y), WARUNEK, font=f_lato(sz_war), fill=PAPIER)
+    y += int(sz_war * 1.8)
     f_kl = f_lato(klauzula_sz)
     tekst_lam(d, pad, y, KLAUZULA, f_kl, (168, 161, 149), W - 2 * pad,
               lh=int(klauzula_sz * 1.3))
 
 
 def buduj(nazwa, W, H, prop_zdjecia, sz_naglowka, wys_stopki, naglowek=None, sz_chipsow=None,
-          szer_zdjecia=None, waska_stopka=False, chipsy_wl=True, gora_etykiety=None):
+          szer_zdjecia=None, waska_stopka=False, chipsy_wl=True, gora_etykiety=None, pdf=False):
     im, d = papier(W, H)
     pad = int(W * 0.055)
     y = etykieta_kobalt(d, pad, gora_etykiety or int(H * 0.045),
@@ -187,7 +206,7 @@ def buduj(nazwa, W, H, prop_zdjecia, sz_naglowka, wys_stopki, naglowek=None, sz_
     y = naglowek_dwubarwny(d, pad, y, naglowek or NAGLOWEK, sz_naglowka, W - 2 * pad)
     if chipsy_wl:
         y += int(H * 0.012)
-        y = chipsy(d, pad, y, ["stowarzyszenia", "fundacje", "koła gospodyń"],
+        y = chipsy(d, pad, y, ["stowarzyszenia", "fundacje", "koła gospodyń", "OSP"],
                    sz_chipsow or int(W * 0.023))
 
     gora_stopki = H - wys_stopki
@@ -208,16 +227,18 @@ def buduj(nazwa, W, H, prop_zdjecia, sz_naglowka, wys_stopki, naglowek=None, sz_
                wys_logo=int(W * 0.067), klauzula_sz=max(12, int(W * 0.0135)))
     cel = os.path.join(OUT, nazwa)
     im.save(cel, quality=95)
+    if pdf:
+        im.save(cel.replace(".png", ".pdf"), "PDF", resolution=300.0)
     print("%-52s %s  zdjecie %dx%d" % (nazwa, im.size, szer_foto, wys))
 
 
 if __name__ == "__main__":
-    buduj("MMS Slaskie - dla kogo, kwadrat-1080.png", 1080, 1080, 2.30,
-          int(1080 * 0.052), 322, sz_chipsow=21, gora_etykiety=40)
+    buduj("MMS Slaskie - dla kogo, kwadrat-1080.png", 1080, 1080, 2.80,
+          int(1080 * 0.058), 372, sz_chipsow=21, gora_etykiety=40)
     buduj("MMS Slaskie - dla kogo, pion-1080x1350.png", 1080, 1350, 1.95,
-          int(1080 * 0.062), 380)
-    buduj("MMS Slaskie - dla kogo, poziom-1200x630.png", 1200, 630, 3.05,
-          int(1200 * 0.034), 178, waska_stopka=True, chipsy_wl=False, gora_etykiety=24,
-          naglowek=[
-              [("Konkurs dla miejscowości ", TUSZ), ("do 100 tysięcy mieszkańców", POM)],
-          ])
+          int(1080 * 0.066), 430)
+    buduj("MMS Slaskie - dla kogo, poziom-1200x630.png", 1200, 630, 2.85,
+          int(1200 * 0.038), 190, waska_stopka=True, chipsy_wl=False, gora_etykiety=24,
+          naglowek=[[("Do ", TUSZ), ("10 000 zł", POM), (" dla organizacji i grup nieformalnych", TUSZ)]])
+    buduj("MMS Slaskie - plakat A4.png", 2480, 3508, 1.55,
+          int(2480 * 0.062), 940, pdf=True)
